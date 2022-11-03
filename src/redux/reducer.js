@@ -11,13 +11,16 @@ export const reducer = (state = initialstate, action) => {
             return { ...state, cardata: [...state.cardata, action.payload] };
 
         case REMOVE_FROMWISHLIST:
-            const updated = state.cardata.filter((item) => {
-                console.log("item.id", item.id, "action.payload", action.payload);
-                item.id !== action.payload
-            })
+            // cardata = state.cardata.filter((item) => {
+            //     console.log("item.id", item.id, "action.payload", action.payload.id, "Carddata", state.cardata);
+            //     item.id != action.payload.id
+            // })
             return {
                 ...state,
-                cardata: updated
+                cardata: state.cardata.filter((item) => {
+                    console.log("item.id", item.id, "action.payload", action.payload.id, "Carddata", state.cardata);
+                    item.id != action.payload.id
+                })
             }
         default:
             return state;
@@ -26,3 +29,8 @@ export const reducer = (state = initialstate, action) => {
 }
 // item.id != action.payload.id
 
+// case "DELETEITEM" :
+//         return {
+//             ...state,
+//             items:state.items.filter((item) =>item.id != action.payload.id)
+//         }
