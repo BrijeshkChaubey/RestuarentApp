@@ -5,59 +5,56 @@
  * @format
  * @flow strict-local
  */
-
+ import 'react-native-gesture-handler';
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import { View,} from 'react-native';
 import MapView from 'react-native-maps';  
 import { Marker } from 'react-native-maps';  
+import { MapViewScreen } from './src/Screens/MapView';
+import { NavigationContainer } from '@react-navigation/native';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import EvilIcons from 'react-native-vector-icons/EvilIcons'
+import { MyTabs } from './src/Navigation/TabNav';
+import { CartCardComponent } from './src/components/NearbyCard';
+import { FirstScreenNavigator, MapviewStack, MyStack, SecondScreenNavigator } from './src/Navigation/Stacknav';
+import {Provider} from 'react-redux';
+import { store } from './src/redux/store';
 const App=()=>{
+  const Tab = createMaterialBottomTabNavigator()
+ 
   return(
-    <View style={styles.MainContainer}>
-       <MapView 
-         style={styles.mapStyle}  
-          showsUserLocation={false}  
-          zoomEnabled={true}  
-          zoomControlEnabled={true}  
-          initialRegion={{  
-            latitude: 28.579660,   
-            longitude: 77.321110,  
-            latitudeDelta: 0.0922,  
-            longitudeDelta: 0.0421,  
-          }}>  
-  
-          <Marker  
-            coordinate={{ latitude: 28.579660, longitude: 77.321110 }}  
-            title={"JavaTpoint"}  
-            description={"Java Training Institute"}  
-          />  
-        </MapView>  
-    </View>
+  //  <View><CartCardComponent/></View>
+  <Provider store={store}>
+  <NavigationContainer>
+    <Tab.Navigator
+           activeColor="#000080"
+           inactiveColor="grey"
+           barStyle={{ backgroundColor: '#D3D3D3' 
+           }}
+         >
+           <Tab.Screen
+             name="Nearby"
+             component={FirstScreenNavigator}
+             options={{
+              tabBarIcon: () => (
+                <MaterialCommunityIcons name="google-maps" size={30} />
+              ),
+            }} 
+           />
+           <Tab.Screen
+             name="Wishlist"
+             component={SecondScreenNavigator}
+             options={{
+              tabBarIcon: () => (
+                <EvilIcons name="heart" size={30} />
+              )
+            }}
+           />
+           
+         </Tab.Navigator>
+    </NavigationContainer>
+   </Provider>
   )
 };
 export default App;
-const styles = StyleSheet.create({  
-  MainContainer: {  
-    position: 'absolute',  
-    top: 0,  
-    left: 0,  
-    right: 0,  
-    bottom: 0,  
-    alignItems: 'center',  
-    justifyContent: 'flex-end',  
-  },  
-  mapStyle: {  
-    position: 'absolute',  
-    top: 0,  
-    left: 0,  
-    right: 0,  
-    bottom: 0,  
-  },  
-});  
