@@ -22,12 +22,10 @@ export const WishListScreen = () => {
         <Appbar.Header style={style.header}>
           <Appbar.Content title="WishListScreen" style={{ alignSelf: 'center' }} />
           <Appbar.Action
-            icon="delete"
+            icon="menu"
             color="red"
             size={35}
-            onPress={() => {
-              dispatch(removefromwishlistAction(data))
-            }}
+
           />
         </Appbar.Header>
       </View>

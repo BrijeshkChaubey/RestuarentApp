@@ -9,25 +9,19 @@ import { Dimensions, PixelRatio } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from "react-redux";
 import { addtowhishlistAction, removefromwishlistAction } from '../redux/action/action';
-const { width, height } = Dimensions.get('window');
-const wp = number => {
-  let givenWidth = typeof number === 'number' ? number : parseFloat(number);
-  PixelRatio.roundToNearestPixel((width * givenWidth) / 100);
-};
-const hp = number => {
-  let givenHeight = typeof number === 'number' ? number : parseFloat(number);
-  PixelRatio.roundToNearestPixel((height * givenHeight) / 100);
-};
+import { hp, wp } from './Style';
+
 
 
 export const CartCardComponent = ({ ...props }) => {
-  const data = { image: props.Image, title: props.Title, discription1: props.Description1, discription2: props.Description2, id: props.id }
-  // console.log('ID===>', data.id);
-  // const id = props.id;
+  const data = {
+    image: props.Image, title: props.Title,
+    discription1: props.Description1, discription2: props.Description2, id: props.id
+  }
+
   const navigation = useNavigation();
   const [favorite, setFavorite] = useState(false)
   const selector = useSelector(state => state);
-  // console.log('ID===>', selector.cardata[0].title);
 
   const Changecolor = (id) => {
     console.log("come inside if");
@@ -35,18 +29,13 @@ export const CartCardComponent = ({ ...props }) => {
       setFavorite(favorite)
     } else {
       setFavorite(!favorite)
-
     }
   }
   const dispatch = useDispatch();
   return (
-    <View style={{ height: 200, width: wp('100%'), marginVertical: wp('4%'), justifyContent: 'center', alignSelf: 'center', backgroundColor: 'white' }} >
+    <View style={CardStyl.View2} >
       <Card style={CardStyl.card}>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-          }}>
+        <View style={CardStyl.View1}>
           <TouchableOpacity>
             <Card.Cover
               source={props.Image}
@@ -55,7 +44,7 @@ export const CartCardComponent = ({ ...props }) => {
           </TouchableOpacity>
           <Card.Content>
             <Title style={CardStyl.title}>{props.Title}</Title>
-            <View style={{ display: 'flex', flexDirection: 'row' }}>
+            <View style={CardStyl.View1}>
               <View>
                 <Text>Rating</Text>
                 <View style={CardStyl.rating}>
@@ -81,12 +70,12 @@ export const CartCardComponent = ({ ...props }) => {
                     props.nearby === 'nearby' ?
                       (
                         <TouchableOpacity onPress={() => { dispatch(addtowhishlistAction(data)); Changecolor(data.id) }}>
-                          <FontAwesome name="heart" size={30} color={favorite ? 'pink' : 'red'}
+                          <FontAwesome name="heart" size={30} color={favorite ? 'grey' : 'red'}
                           />
                         </TouchableOpacity>
                       ) : (
                         <TouchableOpacity onPress={() => { dispatch(removefromwishlistAction(data.id)); Changecolor(data.id) }}>
-                          <FontAwesome name="heart" size={30} color={favorite ? 'pink' : 'red'}
+                          <FontAwesome name="heart" size={30} color={favorite ? 'grey' : 'red'}
                           />
                         </TouchableOpacity>
                       )
@@ -136,5 +125,19 @@ const CardStyl = StyleSheet.create({
   },
   star: {
     color: '#FF8C00'
+  },
+  View2: {
+    height: 200,
+    width: wp('100%'),
+    marginVertical: wp('4%'),
+    justifyContent: 'center',
+    alignSelf: 'center',
+    backgroundColor: 'white'
+  },
+  View1:
+  {
+    display: 'flex',
+    flexDirection: 'row'
   }
+
 });

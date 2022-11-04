@@ -7,15 +7,10 @@ export const addtowhishlistAction = (wishlist) => {
     }
 
 }
-export const removefromwishlistAction = (id) => ({
-
-    type: REMOVE_FROMWISHLIST,
-    payload: { id: id }
-
-});
-// export const DeleteItems= (id) => ({
-//     type:DELETEITEM ,
-//     payload : {
-//         id :id
-//     }
-// });
+export const removefromwishlistAction = (id) => {
+    console.log("Id====>", id);
+    return {
+        type: REMOVE_FROMWISHLIST,
+        payload: id
+    }
+};

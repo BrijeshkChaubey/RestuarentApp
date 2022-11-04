@@ -16,7 +16,7 @@ export const NearbyScreen = ({ navigation }) => {
           <Appbar.Content title="NearbyScreen" style={{ alignSelf: 'center' }} />
           <Appbar.Action
             icon="menu"
-            color="#1e90ff"
+            color="red"
             size={35}
           />
         </Appbar.Header>
