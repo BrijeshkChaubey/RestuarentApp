@@ -12,10 +12,8 @@ import {
   Platform,
 } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
+import { Rating } from 'react-native-ratings';
 
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Fontisto from 'react-native-vector-icons/Fontisto';
 
 import { markers, mapDarkStyle, mapStandardStyle } from '../model/MapData';
 import StarRating from '../components/StarRating';
@@ -35,23 +33,24 @@ export const MapViewScreen = () => {
     categories: [
       {
         name: 'Fastfood Center',
-        icon: <MaterialCommunityIcons style={styles.chipsIcon} name="food-fork-drink" size={18} />,
+        icon: <Image source={require('../assets/bannerr/fastfood.png')} style={styles.chipsIcon} />,
+
       },
       {
         name: 'Restaurant',
-        icon: <Ionicons name="ios-restaurant" style={styles.chipsIcon} size={18} />,
+        icon: <Image source={require('../assets/bannerr/resturen.png')} style={styles.chipsIcon} />,
       },
       {
         name: 'Dineouts',
-        icon: <Ionicons name="md-restaurant" style={styles.chipsIcon} size={18} />,
+        icon: <Image source={require('../assets/bannerr/dineout.jpg')} style={styles.chipsIcon} />,
       },
       {
         name: 'Snacks Corner',
-        icon: <MaterialCommunityIcons name="food" style={styles.chipsIcon} size={18} />,
+        icon: <Image source={require('../assets/bannerr/snack.jpg')} style={styles.chipsIcon} />,
       },
       {
         name: 'Hotel',
-        icon: <Fontisto name="hotel" style={styles.chipsIcon} size={15} />,
+        icon: <Image source={require('../assets/bannerr/hotel.jpeg')} style={styles.chipsIcon} />,
       },
     ],
     region: {
@@ -132,7 +131,6 @@ export const MapViewScreen = () => {
         ref={_map}
         initialRegion={state.region}
         style={styles.container}
-        provider={PROVIDER_GOOGLE}
         customMapStyle={theme.dark ? mapDarkStyle : mapStandardStyle}
       >
         {state.markers.map((marker, index) => {
@@ -146,7 +144,7 @@ export const MapViewScreen = () => {
             <Marker key={index} coordinate={marker.coordinate} onPress={(e) => onMarkerPress(e)}>
               <Animated.View style={[styles.markerWrap]}>
                 <Animated.Image
-                  source={require('../assets/map_marker.png')}
+                  source={require('../assets/bannerr/map_marker.png')}
                   style={[styles.marker, scaleStyle]}
                   resizeMode="cover"
                 />
@@ -161,8 +159,8 @@ export const MapViewScreen = () => {
           placeholderTextColor="#000"
           autoCapitalize="none"
           style={{ flex: 1, padding: 0 }}
-        />
-        <Ionicons name="ios-search" size={20} />
+        /><Image source={require('../assets/bannerr/search.jpg')} style={styles.chipsIcon} />
+
       </View>
       <ScrollView
         horizontal
@@ -227,7 +225,17 @@ export const MapViewScreen = () => {
             />
             <View style={styles.textContent}>
               <Text numberOfLines={1} style={styles.cardtitle}>{marker.title}</Text>
-              <StarRating ratings={marker.rating} reviews={marker.reviews} />
+              <View style={{ alignSelf: 'flex-start' }}>
+                <Rating
+                  type="star"
+                  ratingCount={5}
+                  imageSize={15}
+                  fractions={2}
+                  startingValue={4}
+                  onFinishRating={5}
+                />
+              </View>
+
               <Text numberOfLines={1} style={styles.cardDescription}>{marker.description}</Text>
               <View style={styles.button}>
                 <TouchableOpacity
@@ -276,7 +284,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10
   },
   chipsIcon: {
-    marginRight: 5,
+    marginRight: 10,
+    height: 20,
+    width: 20
   },
   chipsItem: {
     flexDirection: "row",

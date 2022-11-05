@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { CartCardComponent } from '../components/NearbyCard';
 import { useSelector, useDispatch } from 'react-redux';
@@ -21,12 +21,8 @@ export const WishListScreen = () => {
       <View style={{ backgroundColor: 'lightgray' }}>
         <Appbar.Header style={style.header}>
           <Appbar.Content title="WishListScreen" style={{ alignSelf: 'center' }} />
-          <Appbar.Action
-            icon="menu"
-            color="red"
-            size={35}
+          <Image source={require('../assets/bannerr/menu.png')} style={{ height: 30, width: 30 }} />
 
-          />
         </Appbar.Header>
       </View>
       <View>

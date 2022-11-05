@@ -23,13 +23,11 @@ export const CartCardComponent = ({ ...props }) => {
   const [favorite, setFavorite] = useState(false)
   const selector = useSelector(state => state);
 
-  const Changecolor = (id) => {
+  const Changecolor = () => {
     console.log("come inside if");
-    if (selector.id === id) {
-      setFavorite(favorite)
-    } else {
-      setFavorite(!favorite)
-    }
+
+    setFavorite(!favorite)
+
   }
   const dispatch = useDispatch();
   return (
@@ -62,21 +60,38 @@ export const CartCardComponent = ({ ...props }) => {
               </View>
               <View style={{ marginLeft: 100 }}>
                 <TouchableOpacity onPress={() => navigation.navigate("MapView")}>
-                  <FontAwesome5 name="directions" size={30} color='blue' />
+                  <Image source={require('../assets/bannerr/Direction.jpg')} style={{ height: 30, width: 30 }}
+                  />
                 </TouchableOpacity>
 
                 <View style={{ marginTop: 30 }}>
                   {
                     props.nearby === 'nearby' ?
                       (
-                        <TouchableOpacity onPress={() => { dispatch(addtowhishlistAction(data)); Changecolor(data.id) }}>
-                          <FontAwesome name="heart" size={30} color={favorite ? 'grey' : 'red'}
-                          />
+                        <TouchableOpacity onPress={() => { dispatch(addtowhishlistAction(data)); Changecolor() }}>
+                          {
+                            favorite ? (
+                              <Image source={require('../assets/bannerr/redheart.png')} style={{ height: 30, width: 30, }} />
+
+                            ) :
+                              (
+                                <Image source={require('../assets/bannerr/heart.png')} style={{ height: 30, width: 30, }} />
+
+                              )
+
+                          }
                         </TouchableOpacity>
                       ) : (
-                        <TouchableOpacity onPress={() => { dispatch(removefromwishlistAction(data.id)); Changecolor(data.id) }}>
-                          <FontAwesome name="heart" size={30} color={favorite ? 'grey' : 'red'}
-                          />
+                        <TouchableOpacity onPress={() => { dispatch(removefromwishlistAction(data.id)); Changecolor() }}>
+                          {
+                            favorite ? (
+                              <Image source={require('../assets/bannerr/heart.png')} style={{ height: 30, width: 30, }} />
+                            ) :
+                              (
+                                <Image source={require('../assets/bannerr/redheart.png')} style={{ height: 30, width: 30, }} />
+                              )
+
+                          }
                         </TouchableOpacity>
                       )
                   }
